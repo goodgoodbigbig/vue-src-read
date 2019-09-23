@@ -40,6 +40,7 @@ function build (builds) {
   next()
 }
 
+// 执行构建，使用rollup
 function buildEntry (config) {
   const output = config.output
   const { file, banner } = output
@@ -48,6 +49,7 @@ function buildEntry (config) {
     .then(bundle => bundle.generate(output))
     .then(({ output: [{ code }] }) => {
       if (isProd) {
+        // 压缩
         const minified = (banner ? banner + '\n' : '') + terser.minify(code, {
           toplevel: true,
           output: {
@@ -64,6 +66,8 @@ function buildEntry (config) {
     })
 }
 
+// 构建后的内容输出
+
 function write (dest, code, zip) {
   return new Promise((resolve, reject) => {
     function report (extra) {
@@ -73,7 +77,7 @@ function write (dest, code, zip) {
 
     fs.writeFile(dest, code, err => {
       if (err) return reject(err)
-      if (zip) {
+      if (zip) { // product情况下zip压缩
         zlib.gzip(code, (err, zipped) => {
           if (err) return reject(err)
           report(' (gzipped: ' + getSize(zipped) + ')')
