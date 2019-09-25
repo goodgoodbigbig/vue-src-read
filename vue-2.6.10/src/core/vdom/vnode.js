@@ -1,17 +1,17 @@
 /* @flow */
 
 export default class VNode {
-  tag: string | void;
-  data: VNodeData | void;
-  children: ?Array<VNode>;
-  text: string | void;
-  elm: Node | void;
-  ns: string | void;
-  context: Component | void; // rendered in this component's scope
-  key: string | number | void;
+  tag: string | void;  // 标签
+  data: VNodeData | void; // 数据
+  children: ?Array<VNode>; // 孩子节点
+  text: string | void; // 文本
+  elm: Node | void; // 挂载的DOM节点
+  ns: string | void; // ?
+  context: Component | void; // rendered in this component's scope，上下文环境
+  key: string | number | void; //?
   componentOptions: VNodeComponentOptions | void;
   componentInstance: Component | void; // component instance
-  parent: VNode | void; // component placeholder node
+  parent: VNode | void; // component placeholder node，父节点
 
   // strictly internal
   raw: boolean; // contains raw HTML? (server only)
@@ -71,6 +71,7 @@ export default class VNode {
   }
 }
 
+// 创建一个空节点
 export const createEmptyVNode = (text: string = '') => {
   const node = new VNode()
   node.text = text
@@ -78,6 +79,7 @@ export const createEmptyVNode = (text: string = '') => {
   return node
 }
 
+// 创建一个文本节点，文本节点没有tag等属性
 export function createTextVNode (val: string | number) {
   return new VNode(undefined, undefined, undefined, String(val))
 }
