@@ -9,6 +9,7 @@ import { query } from './util/index'
 import { compileToFunctions } from './compiler/index'
 import { shouldDecodeNewlines, shouldDecodeNewlinesForHref } from './util/compat'
 
+// 缓存，解析参考cache.md
 const idToTemplate = cached(id => {
   const el = query(id)
   return el && el.innerHTML
